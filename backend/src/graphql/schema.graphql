@@ -1,0 +1,34 @@
+type Query {
+    getMovies: [Movie]
+    getMovieByTitle(title:String): Movie
+    getUsers: [User]
+    getLogin(email:String, password:String): String
+
+}
+
+type Mutation{
+    createMovie(title:String, description:String, image:String, dateOfReleased:String, numberOfLikes:Int) : Movie
+    updateMovie(_id:ID, title:String, description:String, image:String, dateOfReleased:String, numberOfLikes:Int) : Movie
+    deleteMovie(_id: ID) : Movie
+    createUser(email:String, password:String, name:String): User
+    updateUser(_id:ID, password:String, name:String): User
+    deleteUser(_id: ID): User
+    
+}
+
+type Movie {
+    _id: ID
+    title: String
+    description: String
+    image: String
+    dateOfReleased: String
+    numberOfLikes: Int
+    
+}
+
+type User{
+    _id: ID
+    email: String
+    password: String
+    name: String
+}
