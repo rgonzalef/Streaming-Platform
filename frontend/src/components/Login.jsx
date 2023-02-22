@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { LOGIN } from "../graphql/Queries";
 import { useLazyQuery } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
+import userContainer from "../config/UserStore";
 
 function Login() {
+  const addAuthorization = userContainer((state) =>  state.addAuthorization)
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,6 +41,7 @@ function Login() {
                   
                   if(data === "User OK"){
                     console.log(data)
+                    addAuthorization({token:true})
                     navigate("/home");
 
                   } else {

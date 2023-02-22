@@ -75,3 +75,26 @@ mutation updateUser($_id:ID, $email: String, $password:String, $name:String){
     name
   }
 }
+
+query getMovies{
+  getMovies{
+    _id
+    title
+    image
+    description
+    dateOfReleased
+    numberOfLikes
+  }
+}
+
+query getMovieByTitle($title:String){
+  getMovieByTitle(title:$title){
+    _id
+    title
+    image
+    description
+    dateOfReleased
+    numberOfLikes
+    
+  }
+}

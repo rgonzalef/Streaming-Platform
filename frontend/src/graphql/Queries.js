@@ -17,3 +17,16 @@ export const LOGIN = gql `
         login(email:$email, password:$password)
     }
 `
+
+export const GET_MOVIE_BY_TITLE = gql`
+    query getMovieByTitle($title: String){
+        getMovieByTitle(title: $title){
+        _id
+        title
+        description
+        image
+        dateOfReleased
+        numberOfLikes
+        }
+    }
+`

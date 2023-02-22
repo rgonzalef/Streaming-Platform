@@ -1,10 +1,8 @@
 import React, {useEffect} from "react";
-import { useLazyQuery, useMutation } from "@apollo/client";
-import {GET_MOVIES} from '../graphql/Queries'
 import userContainer from "../config/UserStore";
 import { useNavigate } from "react-router-dom";
 
-function Home() {
+function MovieDetail() {
     const navigate = useNavigate()
     const getAuthorization = userContainer((state) => state.isAuthorized)
 
@@ -14,13 +12,7 @@ function Home() {
         getMovies()
     }, [])
 
-    const [getMovies, { data, error }] = useLazyQuery(GET_MOVIES);
-
-    if (data) {
-        console.log(data)
-    }
-
-
+    
   return (
     <div className="flex">
         {data && data.getMovies.map( ( {_id,title, description, image, dateOfReleased, numberOfLikes}) => (
@@ -74,4 +66,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default MovieDetail;

@@ -1,7 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import { Link, useNavigate } from "react-router-dom";
+import userContainer from "../config/UserStore";
+import { useLazyQuery } from "@apollo/client";
+import {GET_MOVIE_BY_TITLE} from '../graphql/Queries' 
 
 function Navbar() {
+  const [title, setTitle] = useState("")
+  const [getMovieByTitle, {data,error}] = useLazyQuery(GET_MOVIE_BY_TITLE,{})
+
+  const removeAuthorization = userContainer((state) =>  state.removeAuthorization)
+  const navigate = useNavigate()
+
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900 ">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
@@ -54,16 +63,25 @@ function Navbar() {
               <span className="sr-only">Search icon</span>
             </div>
             <input
+              onChange={(event) => {
+                setTitle(event.target.value);
+              }}
               type="text"
               id="search-navbar"
               className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Search..."
             />
           </div>
-          {/* <button data-collapse-toggle="navbar-search" type="button" className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-search" aria-expanded="false">
-          <span className="sr-only">Open menu</span>
-          <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-          </button> */}
+          <button          
+            onClick={async (event) => {
+             //var titleValue = event.target.value
+             await getMovieByTitle({variables: {title: title}})
+                   
+           }}
+          
+          className="inline-flex items-center p-2 text-sm text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-lg px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" 
+          > Search
+          </button>
         </div>
         <div
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
@@ -114,6 +132,20 @@ function Navbar() {
               </Link>
             </li>
           </ul>
+          <div>
+              <button
+                  type="submit"
+                  onClick={ (event) => {
+                    event.preventDefault()
+                    removeAuthorization({token:""})
+                    navigate("/")
+                  }}
+                  className="w-full text-white bg-red-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                >
+                  Sign out
+              </button>
+              
+            </div>
         </div>
       </div>
     </nav>
