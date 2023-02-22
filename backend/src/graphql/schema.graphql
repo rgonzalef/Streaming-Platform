@@ -2,7 +2,7 @@ type Query {
     getMovies: [Movie]
     getMovieByTitle(title:String): Movie
     getUsers: [User]
-    getLogin(email:String, password:String): String
+    login(email:String, password:String): String
 
 }
 
@@ -11,7 +11,7 @@ type Mutation{
     updateMovie(_id:ID, title:String, description:String, image:String, dateOfReleased:String, numberOfLikes:Int) : Movie
     deleteMovie(_id: ID) : Movie
     createUser(email:String, password:String, name:String): User
-    updateUser(_id:ID, password:String, name:String): User
+    updateUser(_id:ID, password:String): User
     deleteUser(_id: ID): User
     
 }
