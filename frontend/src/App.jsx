@@ -6,6 +6,7 @@ import Navbar from './components/Navbar'
 import Login from './components/Login'
 import Home from './components/Home'
 import AddMovie from './components/AddMovie'
+import MovieDetail from './components/MovieDetail'
 
 function App() {
   const client = new ApolloClient( {
@@ -23,6 +24,7 @@ function App() {
         <Route path="/home" element={<Home/>}></Route>
         <Route path="/add-movie" element={<AddMovie/>}></Route>
         <Route index element={<Login/>}></Route>
+        <Route path="/movie-detail" element={<MovieDetail/>}></Route>
         </Routes>
 
         

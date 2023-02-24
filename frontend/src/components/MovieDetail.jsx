@@ -1,36 +1,51 @@
 import React, {useEffect} from "react";
 import userContainer from "../config/UserStore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function MovieDetail() {
     const navigate = useNavigate()
+    const location = useLocation()
+    const getMovieData=location.state.data
+
+    console.log('current location', getMovieData)
+
+    //Define the inner informations fields
+    const movieId = getMovieData.getMovieByTitle._id
+    const movieTitle = getMovieData.getMovieByTitle.title
+    const movieDescription = getMovieData.getMovieByTitle.description
+    const movieImage = getMovieData.getMovieByTitle.image
+    const movieDateOfReleased = getMovieData.getMovieByTitle.dateOfReleased
+    const movieNumberOfLikes = getMovieData.getMovieByTitle.numberOfLikes
+
+    //Define the inner informations fields
+
+    
     const getAuthorization = userContainer((state) => state.isAuthorized)
 
     useEffect(() => {
         console.log('get Authorization', getAuthorization)
         if(!getAuthorization.isAuthorized) return navigate("/")
-        getMovies()
+        
     }, [])
 
     
   return (
     <div className="flex">
-        {data && data.getMovies.map( ( {_id,title, description, image, dateOfReleased, numberOfLikes}) => (
-
+        
             <div 
-            key={_id}
+            key={movieId}
             className="mt-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                    <img className="rounded-t-lg " src={image} alt="" />
+                    <img className="rounded-t-lg " src={movieImage} alt="" />
                 </a>
                 <div className="p-5">
                     <a href="#">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        {title}
+                        {movieTitle}
                     </h5>
                     </a>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    {description}
+                    {movieDescription}
                     </p>
 
                     <div className="flex">
@@ -38,7 +53,7 @@ function MovieDetail() {
                         Date of Released:
                     </p>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        {dateOfReleased}
+                        {movieDateOfReleased}
                     </p>
                     </div>
                     <div className="flex items-center mt-2.5 mb-5">
@@ -54,12 +69,12 @@ function MovieDetail() {
                     </svg>
 
                     <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
-                        {numberOfLikes}
+                        {movieNumberOfLikes}
                     </span>
                     </div>
                 </div>
             </div>
-        ))}
+        
 
         
     </div>

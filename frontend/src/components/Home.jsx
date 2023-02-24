@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import {GET_MOVIES} from '../graphql/Queries'
 import userContainer from "../config/UserStore";
 import { useNavigate } from "react-router-dom";
@@ -22,16 +22,16 @@ function Home() {
 
 
   return (
-    <div className="flex">
+    <div className="flex flex-wrap gap-3">
         {data && data.getMovies.map( ( {_id,title, description, image, dateOfReleased, numberOfLikes}) => (
 
             <div 
             key={_id}
-            className="mt-5 max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            className="mt-5  max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                    <img className="rounded-t-lg " src={image} alt="" />
+                    <img className="rounded-t-lg object-fill h-96 w-96" src={image} alt="" />
                 </a>
-                <div className="p-5">
+                <div className="p-5 text-sm">
                     <a href="#">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {title}

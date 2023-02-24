@@ -18,7 +18,7 @@ const Query = {
     async login (_, {email, password}){
         var message
         const verifyUser = await User.find({email: email, password: password}) //returs an array
-        console.log('user', verifyUser.length)
+        //console.log('user', verifyUser.length)
 
         if(verifyUser.length > 0){
             message = "User OK"
