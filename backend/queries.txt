@@ -10,7 +10,7 @@ query getMovies{
 }
 
 
-mutation createMovie($title:String, $description:String, $image:String, $dateOfReleased: String, $numberOfLikes:String){
+mutation createMovie($title:String, $description:String, $image:String, $dateOfReleased: String, $numberOfLikes:Int){
   createMovie(title:$title, description:$description, image:$image, dateOfReleased:$dateOfReleased, numberOfLikes:$numberOfLikes){
     _id
     title
@@ -21,7 +21,7 @@ mutation createMovie($title:String, $description:String, $image:String, $dateOfR
     }
 }
 
-mutation updateMovie($_id:ID, $title:String, $description:String, $image:String, $dateOfReleased: String, $numberOfLikes:String){
+mutation updateMovie($_id:ID, $title:String, $description:String, $image:String, $dateOfReleased: String, $numberOfLikes:Int){
   updateMovie(_id:$_id, title:$title, description:$description, image:$image, dateOfReleased:$dateOfReleased, numberOfLikes:$numberOfLikes){
     _id
     title
@@ -73,5 +73,28 @@ mutation updateUser($_id:ID, $email: String, $password:String, $name:String){
     email
     password
     name
+  }
+}
+
+query getMovies{
+  getMovies{
+    _id
+    title
+    image
+    description
+    dateOfReleased
+    numberOfLikes
+  }
+}
+
+query getMovieByTitle($title:String){
+  getMovieByTitle(title:$title){
+    _id
+    title
+    image
+    description
+    dateOfReleased
+    numberOfLikes
+    
   }
 }

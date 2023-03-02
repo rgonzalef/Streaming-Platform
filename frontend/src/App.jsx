@@ -4,6 +4,9 @@ import {ApolloClient, InMemoryCache, ApolloProvider} from "@apollo/client"
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom"
 import Navbar from './components/Navbar'
 import Login from './components/Login'
+import Home from './components/Home'
+import AddMovie from './components/AddMovie'
+import MovieDetail from './components/MovieDetail'
 
 function App() {
   const client = new ApolloClient( {
@@ -18,7 +21,10 @@ function App() {
         <Navbar/>
 
         <Routes>
+        <Route path="/home" element={<Home/>}></Route>
+        <Route path="/add-movie" element={<AddMovie/>}></Route>
         <Route index element={<Login/>}></Route>
+        <Route path="/movie-detail" element={<MovieDetail/>}></Route>
         </Routes>
 
         
